@@ -74,7 +74,7 @@ public class LocacaoService {
 		locacao.setDataRetorno(dataEntrega);
 		
 		//Salvando a locacao...	
-		dao.salvar(locacao);
+		//dao.salvar(locacao);
 		
 		return locacao;
 	}
