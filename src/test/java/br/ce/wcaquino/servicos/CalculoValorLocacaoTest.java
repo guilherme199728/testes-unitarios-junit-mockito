@@ -1,5 +1,7 @@
 package br.ce.wcaquino.servicos;
 
+import br.ce.wcaquino.daos.LocacaoDAO;
+import br.ce.wcaquino.daos.LocacaoDAOFake;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
@@ -10,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,6 +22,7 @@ import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
 import static br.ce.wcaquino.builders.UsuarioBuilder.umUsuario;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.runners.Parameterized.*;
+import static org.mockito.Mockito.mock;
 
 @RunWith(Parameterized.class)
 public class CalculoValorLocacaoTest {
@@ -35,8 +39,12 @@ public class CalculoValorLocacaoTest {
     public String cenario;
 
     @Before
-    public void criaInstanciaLocadora() {
+    public void setup() {
         locacaoService = new LocacaoService();
+        LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
+        locacaoService.setLocacaoDAO(dao);
+        SPCService spcService = mock(SPCService.class);
+        locacaoService.setSpcService(spcService);
     }
 
     private static final Filme filme1 = umFilme().agora();
